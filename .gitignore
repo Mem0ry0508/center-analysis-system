@@ -1,0 +1,21 @@
+# Maven
+target/
+*.class
+
+# 帳密設定檔（不進Git，只推 .example 版本）
+config.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Log
+*.log

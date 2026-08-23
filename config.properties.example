@@ -1,0 +1,6 @@
+# 複製這個檔案為 config.properties（該檔已被 .gitignore 排除，不會進版控）
+# 兩人各自在自己電腦上填入資料庫老師提供的連線資訊
+
+db.url=jdbc:mysql://<host>:3306/<database>?useSSL=false&serverTimezone=Asia/Taipei&characterEncoding=UTF-8
+db.user=<your_username>
+db.password=<your_password>
