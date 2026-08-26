@@ -32,7 +32,7 @@ public class CourseFormController implements DialogController {
 
     @FXML
     private void initialize() {
-        statusField.setItems(FXCollections.observableArrayList("planned", "active", "completed", "cancelled"));
+        statusField.setItems(FXCollections.observableArrayList("planned", "ongoing", "ended", "suspended"));
     }
 
     @Override

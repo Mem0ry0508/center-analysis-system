@@ -27,6 +27,26 @@ public class MainMenuController {
     }
 
     @FXML
+    private void handleContact() {
+        SceneRouter.show("/fxml/contact-list.fxml", "中心營運分析系統 - 聯絡紀錄");
+    }
+
+    @FXML
+    private void handleInventory() {
+        SceneRouter.show("/fxml/book-list.fxml", "中心營運分析系統 - 庫存管理");
+    }
+
+    @FXML
+    private void handleDashboard() {
+        SceneRouter.show("/fxml/dashboard.fxml", "中心營運分析系統 - 儀表板");
+    }
+
+    @FXML
+    private void handleAlert() {
+        SceneRouter.show("/fxml/alert-list.fxml", "中心營運分析系統 - 優先警示");
+    }
+
+    @FXML
     private void handleLogout() {
         Session.clear();
         SceneRouter.show("/fxml/login.fxml", "中心營運分析系統 - 登入");
