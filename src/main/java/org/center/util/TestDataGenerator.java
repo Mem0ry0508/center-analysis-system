@@ -194,8 +194,13 @@ public final class TestDataGenerator {
             b.setCost(cost);
             b.setListPrice(cost.multiply(BigDecimal.valueOf(1.5)));
             b.setStorageLocation("架位" + (char) ('A' + RANDOM.nextInt(6)) + (1 + RANDOM.nextInt(20)));
-            b.setSafetyStock(5 + RANDOM.nextInt(10));
-            b.setCurrentStock(20 + RANDOM.nextInt(100));
+            int safetyStock = 5 + RANDOM.nextInt(10);
+            b.setSafetyStock(safetyStock);
+            boolean lowStock = RANDOM.nextInt(3) == 0;   // ~33% 刻意低於安全庫存，供警示/儀表板測試
+                                                          // （機率設高一點是因為後續進貨交易可能把部分庫存補回去）
+            b.setCurrentStock(lowStock
+                    ? Math.max(0, safetyStock - 1 - RANDOM.nextInt(safetyStock))
+                    : 20 + RANDOM.nextInt(100));
             ids.add(bookRepository.save(b).getBookId());
         }
         return ids;
@@ -241,7 +246,9 @@ public final class TestDataGenerator {
             c.setResult(randomFrom(CONTACT_RESULTS));
             if (RANDOM.nextBoolean()) {
                 c.setFollowUpAction("安排下次回訪");
-                c.setNextContactDate(randomDateBetween(LocalDate.of(2026, 8, 26), LocalDate.of(2026, 12, 31)));
+                // 範圍涵蓋過去 60 天到未來 4 個月，讓其中一部分自然逾期，供警示畫面測試
+                LocalDate today = LocalDate.now();
+                c.setNextContactDate(randomDateBetween(today.minusDays(60), today.plusMonths(4)));
             }
             c.setCreatedBy(randomFrom(accountIds));
             contactRecordRepository.save(c);
