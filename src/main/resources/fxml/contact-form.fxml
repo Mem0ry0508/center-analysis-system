@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="14.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.center.ui.ContactRecordFormController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+    <GridPane hgap="10.0" styleClass="form-grid" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="90.0"/>
+            <ColumnConstraints minWidth="220.0"/>
+        </columnConstraints>
+        <Label text="人員 ID *" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="personIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="聯絡日期 *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="contactDateField" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="時間 (HH:mm)" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="contactTimeField" promptText="09:30" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="方式" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="methodField" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="內容" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextArea fx:id="contentField" prefRowCount="3" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="心情評分" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <Spinner fx:id="moodRatingField" editable="true" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="結果" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="resultField" maxWidth="Infinity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="後續行動" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="followUpActionField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <Label text="下次聯絡日" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="nextContactDateField" maxWidth="Infinity" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    </GridPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button onAction="#handleCancel" text="取消"/>
+        <Button defaultButton="true" onAction="#handleSave" text="儲存"/>
+    </HBox>
+</VBox>

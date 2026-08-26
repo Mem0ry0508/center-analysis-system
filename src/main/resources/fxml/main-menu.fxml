@@ -27,10 +27,10 @@
             </padding>
             <Button maxWidth="Infinity" onAction="#handlePerson" styleClass="menu-button" text="人員管理"/>
             <Button maxWidth="Infinity" onAction="#handleCourse" styleClass="menu-button" text="課程管理"/>
-            <Button disable="true" maxWidth="Infinity" styleClass="menu-button" text="聯絡紀錄（尚未實作）"/>
-            <Button disable="true" maxWidth="Infinity" styleClass="menu-button" text="庫存管理（尚未實作）"/>
-            <Button disable="true" maxWidth="Infinity" styleClass="menu-button" text="儀表板（尚未實作）"/>
-            <Button disable="true" maxWidth="Infinity" styleClass="menu-button" text="優先警示（尚未實作）"/>
+            <Button maxWidth="Infinity" onAction="#handleContact" styleClass="menu-button" text="聯絡紀錄"/>
+            <Button maxWidth="Infinity" onAction="#handleInventory" styleClass="menu-button" text="庫存管理"/>
+            <Button maxWidth="Infinity" onAction="#handleDashboard" styleClass="menu-button" text="儀表板"/>
+            <Button maxWidth="Infinity" onAction="#handleAlert" styleClass="menu-button" text="優先警示"/>
         </VBox>
     </center>
 </BorderPane>
