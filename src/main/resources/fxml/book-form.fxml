@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="14.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.center.ui.BookFormController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+    <GridPane hgap="10.0" styleClass="form-grid" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="90.0"/>
+            <ColumnConstraints minWidth="220.0"/>
+        </columnConstraints>
+        <Label text="書名 *" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="ISBN" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="isbnField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="作者" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="authorField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="分類" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="categoryField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="供應商" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="supplierField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="成本 *" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="costField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="售價 *" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="listPriceField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="架位" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="storageLocationField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <Label text="安全庫存 *" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <TextField fx:id="safetyStockField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <Label text="現有庫存 *" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+        <TextField fx:id="currentStockField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+    </GridPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button onAction="#handleCancel" text="取消"/>
+        <Button defaultButton="true" onAction="#handleSave" text="儲存"/>
+    </HBox>
+</VBox>
