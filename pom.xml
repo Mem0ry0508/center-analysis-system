@@ -71,6 +71,14 @@
                     <mainClass>${mainClass}</mainClass>
                 </configuration>
             </plugin>
+
+            <!-- 執行工具類 main 方法，例如測試資料產生器：
+                 mvn compile exec:java -Dexec.mainClass=org.center.util.TestDataGenerator -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
         </plugins>
     </build>
 </project>
