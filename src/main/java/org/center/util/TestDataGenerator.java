@@ -30,6 +30,7 @@ import java.util.Random;
 public final class TestDataGenerator {
 
     private static final Random RANDOM = new Random(42);
+    private static final String TEST_ACCOUNT_PASSWORD = "password123";
 
     private static final int PEOPLE_COUNT = 200;
     private static final int COURSE_COUNT = 20;
@@ -77,7 +78,8 @@ public final class TestDataGenerator {
         long start = System.currentTimeMillis();
 
         List<Long> accountIds = generator.generateAccounts(5);
-        System.out.println("accounts: " + accountIds.size());
+        System.out.println("accounts: " + accountIds.size() + "（帳號 staff1~staff" + accountIds.size()
+                + "，測試密碼統一為 \"" + TEST_ACCOUNT_PASSWORD + "\"）");
 
         List<Long> personIds = generator.generatePeople(PEOPLE_COUNT, accountIds);
         System.out.println("people: " + personIds.size());
@@ -110,7 +112,7 @@ public final class TestDataGenerator {
         for (int i = 1; i <= count; i++) {
             Account account = new Account();
             account.setUsername("staff" + i);
-            account.setPasswordHash("placeholder-hash-" + i);
+            account.setPasswordHash(PasswordUtil.hash(TEST_ACCOUNT_PASSWORD));
             account.setRole(roles[(i - 1) % roles.length]);
             account.setActive(true);
             account.setFailedLoginCount(0);
