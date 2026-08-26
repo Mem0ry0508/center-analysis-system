@@ -104,6 +104,67 @@ public class InventoryTransactionRepository implements IRepository<InventoryTran
         }
     }
 
+    /**
+     * 進貨新增交易紀錄 + 累加庫存的 Transaction 案例，跟 recordSale 一樣單一 connection 內
+     * 手動 commit/rollback，避免「交易紀錄建好了但庫存沒真的加上去」的不一致狀態。
+     */
+    public InventoryTransaction recordPurchase(InventoryTransaction transaction) {
+        String insertSql = "INSERT INTO inventory_transactions (book_id, transaction_type, supplier, "
+                + "quantity, unit_price, discount, net_amount, document_number, inspection_status, status) "
+                + "VALUES (?, 'purchase', ?, ?, ?, ?, ?, ?, ?, 'completed')";
+        String updateStockSql = "UPDATE books SET current_stock = current_stock + ? WHERE book_id = ?";
+
+        Connection conn = null;
+        try {
+            conn = ConnectionManager.getConnection();
+            conn.setAutoCommit(false);
+
+            BigDecimal discount = transaction.getDiscount() == null ? BigDecimal.ZERO : transaction.getDiscount();
+            BigDecimal netAmount = transaction.getNetAmount() != null
+                    ? transaction.getNetAmount()
+                    : transaction.getUnitPrice().multiply(BigDecimal.valueOf(transaction.getQuantity()))
+                            .subtract(discount);
+            String inspectionStatus = transaction.getInspectionStatus() == null
+                    ? "accepted" : transaction.getInspectionStatus();
+
+            try (PreparedStatement ps = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setLong(1, transaction.getBookId());
+                ps.setString(2, transaction.getSupplier());
+                ps.setInt(3, transaction.getQuantity());
+                ps.setBigDecimal(4, transaction.getUnitPrice());
+                ps.setBigDecimal(5, discount);
+                ps.setBigDecimal(6, netAmount);
+                ps.setString(7, transaction.getDocumentNumber());
+                ps.setString(8, inspectionStatus);
+                ps.executeUpdate();
+                try (ResultSet keys = ps.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        transaction.setTransactionId(keys.getLong(1));
+                    }
+                }
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement(updateStockSql)) {
+                ps.setInt(1, transaction.getQuantity());
+                ps.setLong(2, transaction.getBookId());
+                ps.executeUpdate();
+            }
+
+            conn.commit();
+            transaction.setTransactionType("purchase");
+            transaction.setDiscount(discount);
+            transaction.setNetAmount(netAmount);
+            transaction.setInspectionStatus(inspectionStatus);
+            transaction.setStatus("completed");
+            return transaction;
+        } catch (SQLException e) {
+            rollbackQuietly(conn);
+            throw new RuntimeException("recordPurchase 失敗，已 rollback", e);
+        } finally {
+            closeQuietly(conn);
+        }
+    }
+
     private void rollbackQuietly(Connection conn) {
         if (conn != null) {
             try {
