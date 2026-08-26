@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="14.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.center.ui.CourseFormController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+    <GridPane hgap="10.0" styleClass="form-grid" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="100.0"/>
+            <ColumnConstraints minWidth="220.0"/>
+        </columnConstraints>
+        <Label text="課程名稱 *" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="授課老師ID" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="instructorIdField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="名額" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="capacityField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="繳費方式" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="paymentTypeField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="上課時段" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="classTimeSlotField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="教室" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="classroomField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="開課日" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="startDateField" maxWidth="Infinity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="結業日" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="completionDateField" maxWidth="Infinity" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <Label text="首次上課日" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="firstClassDateField" maxWidth="Infinity" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <Label text="狀態" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="statusField" maxWidth="Infinity" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+        <Label text="停課原因" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+        <TextField fx:id="suspendReasonField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+    </GridPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button onAction="#handleCancel" text="取消"/>
+        <Button defaultButton="true" onAction="#handleSave" text="儲存"/>
+    </HBox>
+</VBox>
