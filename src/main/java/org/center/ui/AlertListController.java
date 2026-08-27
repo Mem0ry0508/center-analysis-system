@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.center.model.Alert;
+import org.center.service.AlertGenerationService;
 import org.center.service.AlertService;
 
 public class AlertListController {
@@ -20,6 +21,7 @@ public class AlertListController {
     @FXML private TableColumn<Alert, String> statusColumn;
 
     private final AlertService alertService = new AlertService();
+    private final AlertGenerationService alertGenerationService = new AlertGenerationService();
 
     @FXML
     private void initialize() {
@@ -48,6 +50,28 @@ public class AlertListController {
             table.setItems(FXCollections.observableArrayList(alertService.findAll()));
         } catch (RuntimeException e) {
             showError("讀取警示失敗：" + rootMessage(e));
+        }
+    }
+
+    /** 未結案警示改用 MinHeap 依到期日排序（最早到期／已逾期在最上面）。 */
+    @FXML
+    private void handleSortByDueDate() {
+        try {
+            table.setItems(FXCollections.observableArrayList(alertService.findOpenAlertsByDueDate()));
+        } catch (RuntimeException e) {
+            showError("讀取警示失敗：" + rootMessage(e));
+        }
+    }
+
+    /** 掃描低庫存／逾期回訪／逾期課程，產生新的未結案警示。 */
+    @FXML
+    private void handleGenerate() {
+        try {
+            int created = alertGenerationService.generateAll();
+            showInfo("本次新增 " + created + " 筆警示");
+            loadOpenAlerts();
+        } catch (RuntimeException e) {
+            showError("產生警示失敗：" + rootMessage(e));
         }
     }
 

@@ -30,6 +30,12 @@ db/                 // schema.sql、sample_data.sql
 3. 建置：`mvn clean compile`
 4. 執行測試：`mvn test`
 5. 執行 JavaFX 程式：`mvn javafx:run`
+6. 灌測試資料：`mvn compile exec:java -Dexec.mainClass=org.center.util.TestDataGenerator`
+7. 效能測試（報告用 100/1000/10000 筆對照表）：`mvn -q compile exec:java -Dexec.mainClass=org.center.util.PerformanceBenchmark`
+
+> 需要真實資料庫的整合測試預設不跑，需個別開啟：
+> `mvn test -Ddb.it=true -Dtest=AnalyticsServiceIT,AlertGenerationServiceIT`（分析與警示產生）、
+> `mvn test -Dfxml.smoke=true -Dtest=FxmlSmokeTest`（載入每個畫面）。
 
 ## Git 分支策略
 

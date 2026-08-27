@@ -26,6 +26,12 @@ class FxmlSmokeTest {
             "/fxml/dashboard.fxml",
             "/fxml/analytics.fxml",
             "/fxml/course-list.fxml",
+            "/fxml/person-list.fxml",
+            "/fxml/enrollment-list.fxml",
+            "/fxml/enrollment-form.fxml",
+            "/fxml/alert-list.fxml",
+            "/fxml/audit-log.fxml",
+            "/fxml/course-form.fxml",
     };
 
     @Test

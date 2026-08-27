@@ -40,6 +40,7 @@ class CourseServiceTest {
     void addPrerequisiteRejectsSelfReference() {
         FakePrerequisiteRepository repo = new FakePrerequisiteRepository(new ArrayList<>());
         CourseService service = new CourseService(new CourseRepository(), repo);
+        service.auditService = AuditService.disabled();
 
         assertThrows(PrerequisiteCycleException.class, () -> service.addPrerequisite(1L, 1L));
         assertTrue(!repo.written);
@@ -51,6 +52,7 @@ class CourseServiceTest {
         List<CoursePrerequisite> edges = new ArrayList<>(List.of(new CoursePrerequisite(2L, 1L)));
         FakePrerequisiteRepository repo = new FakePrerequisiteRepository(edges);
         CourseService service = new CourseService(new CourseRepository(), repo);
+        service.auditService = AuditService.disabled();
 
         assertThrows(PrerequisiteCycleException.class, () -> service.addPrerequisite(1L, 2L));
         assertTrue(!repo.written);
@@ -61,6 +63,7 @@ class CourseServiceTest {
         List<CoursePrerequisite> edges = new ArrayList<>(List.of(new CoursePrerequisite(2L, 1L)));
         FakePrerequisiteRepository repo = new FakePrerequisiteRepository(edges);
         CourseService service = new CourseService(new CourseRepository(), repo);
+        service.auditService = AuditService.disabled();
 
         service.addPrerequisite(3L, 2L);
 

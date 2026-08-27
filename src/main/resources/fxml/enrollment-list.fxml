@@ -11,31 +11,29 @@
 <?import javafx.scene.layout.Region?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.center.ui.PersonListController">
+            fx:controller="org.center.ui.EnrollmentListController">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <padding>
                 <Insets top="16.0" right="24.0" bottom="16.0" left="24.0"/>
             </padding>
             <Button onAction="#handleBack" text="&lt; 返回主選單"/>
-            <Label styleClass="title" text="人員管理"/>
+            <Label styleClass="title" text="報名管理"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="searchField" onAction="#handleSearch" promptText="依姓名搜尋"/>
+            <TextField fx:id="searchField" onAction="#handleSearch" promptText="依學員編號搜尋"/>
             <Button onAction="#handleSearch" text="搜尋"/>
-            <TextField fx:id="jumpIdField" onAction="#handleJumpToId" prefWidth="90.0" promptText="跳到編號"/>
-            <Button onAction="#handleJumpToId" text="跳號"/>
-            <Button onAction="#handleAdd" text="新增"/>
+            <Button onAction="#handleAdd" text="新增報名"/>
         </HBox>
     </top>
     <center>
         <TableView fx:id="table" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="120.0" text="姓名"/>
-                <TableColumn fx:id="genderColumn" prefWidth="60.0" text="性別"/>
-                <TableColumn fx:id="occupationColumn" prefWidth="120.0" text="職業"/>
-                <TableColumn fx:id="mobilePhoneColumn" prefWidth="120.0" text="手機"/>
-                <TableColumn fx:id="emailColumn" prefWidth="180.0" text="Email"/>
-                <TableColumn fx:id="statusColumn" prefWidth="80.0" text="狀態"/>
+                <TableColumn fx:id="idColumn" prefWidth="70.0" text="編號"/>
+                <TableColumn fx:id="personColumn" prefWidth="90.0" text="學員編號"/>
+                <TableColumn fx:id="courseColumn" prefWidth="90.0" text="課程編號"/>
+                <TableColumn fx:id="statusColumn" prefWidth="110.0" text="漏斗狀態"/>
+                <TableColumn fx:id="amountColumn" prefWidth="100.0" text="金額"/>
+                <TableColumn fx:id="attendanceColumn" prefWidth="120.0" text="最後出席日"/>
             </columns>
         </TableView>
     </center>
@@ -44,12 +42,9 @@
             <padding>
                 <Insets top="12.0" right="24.0" bottom="16.0" left="24.0"/>
             </padding>
-            <Button onAction="#handleSortByName" text="依姓名排序"/>
-            <Button onAction="#handleSortById" text="依編號排序"/>
-            <Region HBox.hgrow="ALWAYS"/>
             <Button onAction="#handleRefresh" text="重新整理"/>
             <Button onAction="#handleEdit" text="編輯"/>
-            <Button onAction="#handleDeactivate" text="停用"/>
+            <Button onAction="#handleCancel" text="取消報名"/>
         </HBox>
     </bottom>
 </BorderPane>

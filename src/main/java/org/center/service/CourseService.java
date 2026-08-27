@@ -14,6 +14,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CoursePrerequisiteRepository coursePrerequisiteRepository;
+    AuditService auditService = new AuditService();
 
     public CourseService() {
         this(new CourseRepository(), new CoursePrerequisiteRepository());
@@ -34,15 +35,25 @@ public class CourseService {
     }
 
     public Course save(Course course) {
-        if (course.getCourseId() == null) {
-            return courseRepository.save(course);
+        boolean isNew = course.getCourseId() == null;
+        Course result;
+        if (isNew) {
+            result = courseRepository.save(course);
+        } else {
+            courseRepository.update(course);
+            result = course;
         }
-        courseRepository.update(course);
-        return course;
+        auditService.record(isNew ? "CREATE" : "UPDATE", "courses", result.getCourseId(),
+                (isNew ? "新增課程 " : "修改課程 ") + result.getName());
+        return result;
     }
 
     public boolean deactivate(Long id) {
-        return courseRepository.deleteById(id);
+        boolean ok = courseRepository.deleteById(id);
+        if (ok) {
+            auditService.record("VOID", "courses", id, "停課");
+        }
+        return ok;
     }
 
     public List<Long> findPrerequisiteIds(Long courseId) {
@@ -66,9 +77,16 @@ public class CourseService {
             throw new PrerequisiteCycleException("加入此先修關係會形成循環，已取消，未寫入資料庫");
         }
         coursePrerequisiteRepository.addPrerequisite(courseId, prerequisiteCourseId);
+        auditService.record("CREATE", "course_prerequisites", courseId,
+                "新增先修課程 " + prerequisiteCourseId + " -> " + courseId);
     }
 
     public boolean removePrerequisite(Long courseId, Long prerequisiteCourseId) {
-        return coursePrerequisiteRepository.removePrerequisite(courseId, prerequisiteCourseId);
+        boolean ok = coursePrerequisiteRepository.removePrerequisite(courseId, prerequisiteCourseId);
+        if (ok) {
+            auditService.record("VOID", "course_prerequisites", courseId,
+                    "移除先修課程 " + prerequisiteCourseId + " -> " + courseId);
+        }
+        return ok;
     }
 }

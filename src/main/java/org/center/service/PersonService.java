@@ -9,6 +9,7 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    AuditService auditService = new AuditService();
 
     public PersonService() {
         this(new PersonRepository());
@@ -30,14 +31,24 @@ public class PersonService {
         if (person.getStatus() == null) {
             person.setStatus("active");
         }
-        if (person.getPersonId() == null) {
-            return personRepository.save(person);
+        boolean isNew = person.getPersonId() == null;
+        Person result;
+        if (isNew) {
+            result = personRepository.save(person);
+        } else {
+            personRepository.update(person);
+            result = person;
         }
-        personRepository.update(person);
-        return person;
+        auditService.record(isNew ? "CREATE" : "UPDATE", "people", result.getPersonId(),
+                isNew ? "新增人員 " + result.getName() : "修改人員 " + result.getName());
+        return result;
     }
 
     public boolean deactivate(Long id) {
-        return personRepository.deleteById(id);
+        boolean ok = personRepository.deleteById(id);
+        if (ok) {
+            auditService.record("VOID", "people", id, "停用人員");
+        }
+        return ok;
     }
 }
