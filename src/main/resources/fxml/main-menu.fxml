@@ -21,17 +21,19 @@
         </HBox>
     </top>
     <center>
-        <VBox alignment="CENTER" maxWidth="360.0" spacing="16.0" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" maxWidth="360.0" spacing="10.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="40.0" right="40.0" bottom="40.0" left="40.0"/>
+                <Insets top="20.0" right="40.0" bottom="20.0" left="40.0"/>
             </padding>
             <Button maxWidth="Infinity" onAction="#handlePerson" styleClass="menu-button" text="人員管理"/>
             <Button maxWidth="Infinity" onAction="#handleCourse" styleClass="menu-button" text="課程管理"/>
+            <Button maxWidth="Infinity" onAction="#handleEnrollment" styleClass="menu-button" text="報名管理"/>
             <Button maxWidth="Infinity" onAction="#handleContact" styleClass="menu-button" text="聯絡紀錄"/>
             <Button maxWidth="Infinity" onAction="#handleInventory" styleClass="menu-button" text="庫存管理"/>
             <Button maxWidth="Infinity" onAction="#handleDashboard" styleClass="menu-button" text="儀表板"/>
             <Button maxWidth="Infinity" onAction="#handleAnalytics" styleClass="menu-button" text="營運分析"/>
             <Button maxWidth="Infinity" onAction="#handleAlert" styleClass="menu-button" text="優先警示"/>
+            <Button maxWidth="Infinity" onAction="#handleAudit" styleClass="menu-button" text="稽核紀錄"/>
         </VBox>
     </center>
 </BorderPane>

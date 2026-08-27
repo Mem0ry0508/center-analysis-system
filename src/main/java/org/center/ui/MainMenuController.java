@@ -27,6 +27,11 @@ public class MainMenuController {
     }
 
     @FXML
+    private void handleEnrollment() {
+        SceneRouter.show("/fxml/enrollment-list.fxml", "中心營運分析系統 - 報名管理");
+    }
+
+    @FXML
     private void handleContact() {
         SceneRouter.show("/fxml/contact-list.fxml", "中心營運分析系統 - 聯絡紀錄");
     }
@@ -49,6 +54,11 @@ public class MainMenuController {
     @FXML
     private void handleAlert() {
         SceneRouter.show("/fxml/alert-list.fxml", "中心營運分析系統 - 優先警示");
+    }
+
+    @FXML
+    private void handleAudit() {
+        SceneRouter.show("/fxml/audit-log.fxml", "中心營運分析系統 - 稽核紀錄");
     }
 
     @FXML
