@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.center.ui.EnrollmentListController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="16.0" right="24.0" bottom="16.0" left="24.0"/>
+            </padding>
+            <Button onAction="#handleBack" text="&lt; 返回主選單"/>
+            <Label styleClass="title" text="報名管理"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField" onAction="#handleSearch" promptText="依學員編號搜尋"/>
+            <Button onAction="#handleSearch" text="搜尋"/>
+            <Button onAction="#handleAdd" text="新增報名"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="table" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="70.0" text="編號"/>
+                <TableColumn fx:id="personColumn" prefWidth="90.0" text="學員編號"/>
+                <TableColumn fx:id="courseColumn" prefWidth="90.0" text="課程編號"/>
+                <TableColumn fx:id="statusColumn" prefWidth="110.0" text="漏斗狀態"/>
+                <TableColumn fx:id="amountColumn" prefWidth="100.0" text="金額"/>
+                <TableColumn fx:id="attendanceColumn" prefWidth="120.0" text="最後出席日"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="12.0" right="24.0" bottom="16.0" left="24.0"/>
+            </padding>
+            <Button onAction="#handleRefresh" text="重新整理"/>
+            <Button onAction="#handleEdit" text="編輯"/>
+            <Button onAction="#handleCancel" text="取消報名"/>
+        </HBox>
+    </bottom>
+</BorderPane>
