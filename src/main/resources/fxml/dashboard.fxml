@@ -19,6 +19,7 @@
             <Button onAction="#handleBack" text="&lt; 返回主選單"/>
             <Label styleClass="title" text="儀表板"/>
             <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleGoToAnalytics" text="營運分析"/>
             <Button onAction="#handleRefresh" text="重新整理"/>
         </HBox>
     </top>

@@ -30,6 +30,7 @@
             <Button maxWidth="Infinity" onAction="#handleContact" styleClass="menu-button" text="聯絡紀錄"/>
             <Button maxWidth="Infinity" onAction="#handleInventory" styleClass="menu-button" text="庫存管理"/>
             <Button maxWidth="Infinity" onAction="#handleDashboard" styleClass="menu-button" text="儀表板"/>
+            <Button maxWidth="Infinity" onAction="#handleAnalytics" styleClass="menu-button" text="營運分析"/>
             <Button maxWidth="Infinity" onAction="#handleAlert" styleClass="menu-button" text="優先警示"/>
         </VBox>
     </center>

@@ -42,6 +42,11 @@ public class MainMenuController {
     }
 
     @FXML
+    private void handleAnalytics() {
+        SceneRouter.show("/fxml/analytics.fxml", "中心營運分析系統 - 營運分析");
+    }
+
+    @FXML
     private void handleAlert() {
         SceneRouter.show("/fxml/alert-list.fxml", "中心營運分析系統 - 優先警示");
     }

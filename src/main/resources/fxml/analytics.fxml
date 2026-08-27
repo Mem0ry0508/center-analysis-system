@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.center.ui.AnalyticsController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="16.0" right="24.0" bottom="16.0" left="24.0"/>
+            </padding>
+            <Button onAction="#handleBack" text="&lt; 返回主選單"/>
+            <Label styleClass="title" text="營運分析"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleRefresh" text="重新整理"/>
+        </HBox>
+    </top>
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="報名漏斗">
+                    <VBox spacing="10.0">
+                        <padding>
+                            <Insets top="14.0" right="18.0" bottom="14.0" left="18.0"/>
+                        </padding>
+                        <Label text="漏斗各階段為「至少到達過該階段」的累積人數（第二階段分析）"
+                               styleClass="subtitle"/>
+                        <TableView fx:id="funnelTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="funnelStageColumn" prefWidth="140.0" text="階段"/>
+                                <TableColumn fx:id="funnelCountColumn" prefWidth="120.0" text="累積人數"/>
+                                <TableColumn fx:id="funnelConversionColumn" prefWidth="140.0" text="相對前一階段留存率"/>
+                                <TableColumn fx:id="funnelDropColumn" prefWidth="120.0" text="流失數"/>
+                            </columns>
+                        </TableView>
+                        <Label fx:id="funnelSummaryLabel" styleClass="subtitle"/>
+                    </VBox>
+                </Tab>
+                <Tab text="流失風險名單">
+                    <VBox spacing="10.0">
+                        <padding>
+                            <Insets top="14.0" right="18.0" bottom="14.0" left="18.0"/>
+                        </padding>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                            <Label text="排序（自訂 MergeSort）："/>
+                            <Button onAction="#handleSortByScore" text="依風險分數"/>
+                            <Button onAction="#handleSortById" text="依編號"/>
+                            <Button onAction="#handleSortByName" text="依姓名"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="前"/>
+                            <Spinner fx:id="topNSpinner" editable="true" prefWidth="80.0"/>
+                            <Label text="名（自訂 MaxHeap）"/>
+                            <Button onAction="#handleShowTopN" text="套用"/>
+                            <Button onAction="#handleShowAll" text="全部"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                            <Label text="跳到編號（自訂 BinarySearch）："/>
+                            <TextField fx:id="jumpIdField" prefWidth="120.0" promptText="personId"/>
+                            <Button onAction="#handleJump" text="查找"/>
+                            <Label fx:id="riskStatusLabel" styleClass="subtitle"/>
+                        </HBox>
+                        <TableView fx:id="riskTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="riskIdColumn" prefWidth="70.0" text="編號"/>
+                                <TableColumn fx:id="riskNameColumn" prefWidth="90.0" text="姓名"/>
+                                <TableColumn fx:id="riskScoreColumn" prefWidth="80.0" text="風險分數"/>
+                                <TableColumn fx:id="riskContactColumn" prefWidth="110.0" text="距上次聯絡"/>
+                                <TableColumn fx:id="riskAttendanceColumn" prefWidth="110.0" text="距上次出席"/>
+                                <TableColumn fx:id="riskReasonColumn" prefWidth="320.0" text="風險原因"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab text="課程先修路徑">
+                    <VBox spacing="10.0">
+                        <padding>
+                            <Insets top="14.0" right="18.0" bottom="14.0" left="18.0"/>
+                        </padding>
+                        <Label text="用自訂 CustomGraph 對 course_prerequisites 建圖，偵測循環後以拓撲排序輸出建議修課順序"
+                               styleClass="subtitle"/>
+                        <Label fx:id="coursePathStatusLabel"/>
+                        <ListView fx:id="coursePathList" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
+                <Tab text="搜尋效能對照">
+                    <VBox spacing="12.0">
+                        <padding>
+                            <Insets top="14.0" right="18.0" bottom="14.0" left="18.0"/>
+                        </padding>
+                        <Label text="對目前人員名單，分別用自訂 LinearSearch 與 BinarySearch 查找每個編號並計時，佐證報告的效能比較"
+                               styleClass="subtitle"/>
+                        <Button onAction="#handlePerfCompare" text="執行對照"/>
+                        <Label fx:id="perfResultLabel"/>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

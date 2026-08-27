@@ -4,11 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import org.center.service.AlertService;
-import org.center.service.BookService;
-import org.center.service.ContactRecordService;
-import org.center.service.CourseService;
-import org.center.service.PersonService;
+import org.center.analytics.DashboardStats;
+import org.center.service.AnalyticsService;
 
 public class DashboardController {
 
@@ -19,11 +16,7 @@ public class DashboardController {
     @FXML private Label lowStockValue;
     @FXML private Label overdueContactValue;
 
-    private final PersonService personService = new PersonService();
-    private final CourseService courseService = new CourseService();
-    private final BookService bookService = new BookService();
-    private final AlertService alertService = new AlertService();
-    private final ContactRecordService contactRecordService = new ContactRecordService();
+    private final AnalyticsService analyticsService = new AnalyticsService();
 
     @FXML
     private void initialize() {
@@ -32,18 +25,13 @@ public class DashboardController {
 
     private void loadStats() {
         try {
-            var people = personService.findAll();
-            long activeCount = people.stream().filter(p -> "active".equals(p.getStatus())).count();
-            totalPeopleValue.setText(String.valueOf(people.size()));
-            activePeopleValue.setText(String.valueOf(activeCount));
-
-            var courses = courseService.findAll();
-            long ongoingCount = courses.stream().filter(c -> "ongoing".equals(c.getStatus())).count();
-            ongoingCourseValue.setText(ongoingCount + " / " + courses.size());
-
-            openAlertValue.setText(String.valueOf(alertService.findOpenAlertsByPriority().size()));
-            lowStockValue.setText(String.valueOf(bookService.findBelowSafetyStock().size()));
-            overdueContactValue.setText(String.valueOf(contactRecordService.findOverdueFollowUps().size()));
+            DashboardStats stats = analyticsService.dashboardStats();
+            totalPeopleValue.setText(String.valueOf(stats.getTotalPeople()));
+            activePeopleValue.setText(String.valueOf(stats.getActivePeople()));
+            ongoingCourseValue.setText(stats.getOngoingCourses() + " / " + stats.getTotalCourses());
+            openAlertValue.setText(String.valueOf(stats.getOpenAlerts()));
+            lowStockValue.setText(String.valueOf(stats.getLowStockBooks()));
+            overdueContactValue.setText(String.valueOf(stats.getOverdueContacts()));
         } catch (RuntimeException e) {
             showError("讀取儀表板統計失敗：" + rootMessage(e));
         }
@@ -77,6 +65,11 @@ public class DashboardController {
     @FXML
     private void handleGoToContact() {
         SceneRouter.show("/fxml/contact-list.fxml", "中心營運分析系統 - 聯絡紀錄");
+    }
+
+    @FXML
+    private void handleGoToAnalytics() {
+        SceneRouter.show("/fxml/analytics.fxml", "中心營運分析系統 - 營運分析");
     }
 
     @FXML
