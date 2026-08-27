@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -44,6 +46,15 @@
         <Label text="停課原因" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
         <TextField fx:id="suspendReasonField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
     </GridPane>
+    <Separator/>
+    <Label styleClass="subtitle" text="先修課程"/>
+    <ListView fx:id="prerequisiteList" prefHeight="90.0"/>
+    <HBox alignment="CENTER_LEFT" spacing="8.0">
+        <ComboBox fx:id="prerequisiteCombo" maxWidth="Infinity" promptText="選擇先修課程" HBox.hgrow="ALWAYS"/>
+        <Button onAction="#handleAddPrerequisite" text="新增"/>
+        <Button onAction="#handleRemovePrerequisite" text="移除"/>
+    </HBox>
+    <Label fx:id="prerequisiteHint" styleClass="subtitle"/>
     <HBox alignment="CENTER_RIGHT" spacing="10.0">
         <Button onAction="#handleCancel" text="取消"/>
         <Button defaultButton="true" onAction="#handleSave" text="儲存"/>

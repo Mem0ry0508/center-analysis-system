@@ -10,7 +10,7 @@ src/main/java/org/center/
   repository/      // A 主導：JDBC/DAO
   datastructure/    // B 主導：CustomHashTable, Graph, MinHeap
   algorithm/        // B 主導：Sort, Search, BFS/DFS, TopologicalSort
-  analytics/        // B 主導：Dashboard, Funnel, Risk
+  analytics/        // B 主導：Dashboard 統計、報名漏斗、流失風險(Heap)、課程先修路徑(Graph)
   service/          // 共同：業務邏輯，串接上述模組
   ui/               // B 主導：JavaFX 畫面與 Controller
   util/             // 共同：設定、驗證、測試資料產生器
