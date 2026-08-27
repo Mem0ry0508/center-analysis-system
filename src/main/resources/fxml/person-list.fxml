@@ -22,6 +22,8 @@
             <Region HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" onAction="#handleSearch" promptText="依姓名搜尋"/>
             <Button onAction="#handleSearch" text="搜尋"/>
+            <TextField fx:id="jumpIdField" onAction="#handleJumpToId" prefWidth="90.0" promptText="跳到編號"/>
+            <Button onAction="#handleJumpToId" text="跳號"/>
             <Button onAction="#handleAdd" text="新增"/>
         </HBox>
     </top>
@@ -42,6 +44,9 @@
             <padding>
                 <Insets top="12.0" right="24.0" bottom="16.0" left="24.0"/>
             </padding>
+            <Button onAction="#handleSortByName" text="依姓名排序"/>
+            <Button onAction="#handleSortById" text="依編號排序"/>
+            <Region HBox.hgrow="ALWAYS"/>
             <Button onAction="#handleRefresh" text="重新整理"/>
             <Button onAction="#handleEdit" text="編輯"/>
             <Button onAction="#handleDeactivate" text="停用"/>

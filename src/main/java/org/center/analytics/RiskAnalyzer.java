@@ -90,7 +90,8 @@ public final class RiskAnalyzer {
             reasons.add("逾 30 天未聯絡");
         }
 
-        if (latestMoodRating(personContacts) != null && latestMoodRating(personContacts) <= 2) {
+        Integer latestMood = latestMoodRating(personContacts);
+        if (latestMood != null && latestMood <= 2) {
             riskScore += 15;
             reasons.add("最近情緒評分偏低");
         }

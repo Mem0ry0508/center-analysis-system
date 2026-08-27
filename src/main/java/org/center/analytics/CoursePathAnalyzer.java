@@ -45,6 +45,7 @@ public final class CoursePathAnalyzer {
         List<Long> order = graph.topologicalSort();
         List<Course> recommended = new ArrayList<>(order.size());
         for (Long id : order) {
+            // 邊可能指向已停用、不在課程清單中的 course_id；這類節點略過不列入建議順序
             Course course = courseById.get(id);
             if (course != null) {
                 recommended.add(course);
