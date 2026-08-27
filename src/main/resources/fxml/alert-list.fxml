@@ -17,8 +17,11 @@
                 <Insets top="16.0" right="24.0" bottom="16.0" left="24.0"/>
             </padding>
             <Button onAction="#handleBack" text="&lt; 返回主選單"/>
-            <Label styleClass="title" text="優先警示（依 MaxHeap 排序）"/>
+            <Label styleClass="title" text="優先警示"/>
             <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleGenerate" text="產生警示"/>
+            <Button onAction="#handleRefresh" text="依嚴重度(MaxHeap)"/>
+            <Button onAction="#handleSortByDueDate" text="依到期日(MinHeap)"/>
             <Button onAction="#handleShowAll" text="顯示全部"/>
             <Button onAction="#handleAdd" text="新增警示"/>
         </HBox>
